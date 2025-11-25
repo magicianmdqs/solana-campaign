@@ -21,6 +21,9 @@ export default defineConfig({
       process: 'process/browser'
     }
   },
+  define: {
+    global: 'window'
+  },
   optimizeDeps: {
     include: ['buffer', 'process']
   }
