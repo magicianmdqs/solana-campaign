@@ -1,0 +1,275 @@
+/* ============================
+   GLOBAL BASE
+============================ */
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #08080d;
+    color: #ffffff;
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+#root {
+    min-height: 100vh;
+    position: relative;
+    z-index: 3;
+}
+
+/* ============================
+   PHANTOM GRADIENT BACKGROUND
+============================ */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+
+    background:
+            radial-gradient(circle at 20% 30%, #7a30ff55, transparent 60%),
+            radial-gradient(circle at 80% 70%, #03e1ff55, transparent 60%);
+
+    animation: phantomPulse 9s ease-in-out infinite alternate;
+    filter: blur(90px);
+}
+
+@keyframes phantomPulse {
+    0% { opacity: 0.55; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.15); }
+}
+
+/* ============================
+   MOVING PARTICLES LAYER
+============================ */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+
+    background-image:
+            url("https://raw.githubusercontent.com/mobalti/open-assets/main/particles/particles1.png");
+
+    opacity: 0.12;
+    animation: particlesDrift 85s linear infinite;
+}
+
+@keyframes particlesDrift {
+    from { transform: translateY(0); }
+    to { transform: translateY(-2400px); }
+}
+
+/* ============================
+   CYBER GLASS CARD
+============================ */
+.campaign-card {
+    backdrop-filter: blur(22px);
+    background: rgba(18, 18, 28, 0.55);
+
+    border: 1px solid rgba(140, 100, 255, 0.35);
+    border-radius: 18px;
+
+    padding: 24px;
+    margin-top: 22px;
+
+    box-shadow:
+            0 0 25px rgba(130, 70, 255, 0.18),
+            inset 0 0 20px rgba(30, 30, 45, 0.2);
+
+    transition: 0.28s ease;
+}
+
+.campaign-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(170, 110, 255, 0.7);
+    box-shadow:
+            0 0 40px rgba(160, 80, 255, 0.45),
+            0 0 26px rgba(3, 225, 255, 0.25);
+}
+
+/* ============================
+   INPUT FIELDS - SOLANA NEON
+============================ */
+.input-field {
+    width: 80%;
+    padding: 14px 18px;
+    margin: 10px 0;
+
+    background: rgba(25, 25, 40, 0.85);
+    border: 1px solid #7a30ff;
+    color: #ffffff;
+    border-radius: 12px;
+
+    font-size: 16px;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 10px rgba(122, 48, 255, 0.3);
+}
+
+.input-field:hover {
+    box-shadow: 0 0 12px rgba(122, 48, 255, 0.45);
+}
+
+.input-field:focus {
+    border-color: #03e1ff;
+    box-shadow:
+            0 0 18px rgba(3, 225, 255, 0.6),
+            0 0 30px rgba(3, 225, 255, 0.35);
+}
+
+/* ============================
+   PHANTOM BUTTONS
+============================ */
+.btn-orange {
+    background: linear-gradient(135deg, #7a30ff, #03e1ff);
+    border: none;
+
+    padding: 12px 22px;
+    margin: 12px 0;
+
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #fff;
+    font-size: 16px;
+
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    transition: 0.25s ease;
+    box-shadow:
+            0 0 20px rgba(122, 48, 255, 0.4),
+            0 0 18px rgba(3, 225, 255, 0.35);
+}
+
+.btn-orange:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow:
+            0 0 28px rgba(122, 48, 255, 0.55),
+            0 0 40px rgba(3, 225, 255, 0.55);
+}
+
+.btn-orange:active {
+    transform: scale(0.94);
+}
+
+/* DANGER BUTTON */
+.btn-orange.danger {
+    background: linear-gradient(135deg, #ff4060, #ff7f37);
+    box-shadow: 0 0 25px rgba(255, 80, 80, 0.55);
+}
+
+.btn-orange.danger:hover {
+    box-shadow: 0 0 36px rgba(255, 120, 120, 0.8);
+}
+
+/* ============================
+   DIVIDERS
+============================ */
+.divider {
+    border-bottom: 1px dashed #444;
+    margin: 18px 0;
+    opacity: 0.7;
+}
+
+/* ============================
+   WALLET MODAL (Fixed for Dark UI)
+============================ */
+.wallet-adapter-modal,
+.wallet-adapter-modal-wrapper {
+    background: rgba(12, 12, 20, 0.9) !important;
+    backdrop-filter: blur(22px) !important;
+
+    border: 1px solid rgba(122, 48, 255, 0.45) !important;
+    border-radius: 18px !important;
+
+    box-shadow:
+            0 0 30px rgba(3, 225, 255, 0.55) !important,
+0 0 40px rgba(122, 48, 255, 0.35) !important;
+}
+
+
+/* ============================
+   HEADER — CYBERPUNK GLASS
+============================ */
+.neo-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+
+    backdrop-filter: blur(20px);
+    background: rgba(15, 15, 25, 0.45);
+    border-bottom: 1px solid rgba(122, 48, 255, 0.35);
+
+    box-shadow:
+            0 0 18px rgba(122, 48, 255, 0.25),
+            0 0 25px rgba(3, 225, 255, 0.20);
+
+    padding: 12px 0;
+}
+
+.neo-header-inner {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 24px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo */
+.logo {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #7a30ff, #03e1ff);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 15px rgba(122, 48, 255, 0.6);
+}
+
+/* Navigation */
+.nav-links a {
+    color: #ddd;
+    margin: 0 16px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.25s;
+}
+
+.nav-links a:hover {
+    color: #03e1ff;
+    text-shadow: 0 0 12px rgba(3, 225, 255, 0.8);
+}
+
+/* Wallet Button Slot */
+.wallet-slot {
+    display: flex;
+    align-items: center;
+}
+
+/* ============================
+   FOOTER — NEON STRIP
+============================ */
+.neo-footer {
+    margin-top: 40px;
+    padding: 26px 0;
+    text-align: center;
+
+    background: rgba(15, 15, 25, 0.65);
+    backdrop-filter: blur(18px);
+    border-top: 1px solid rgba(122, 48, 255, 0.35);
+    box-shadow:
+            0 0 22px rgba(122, 48, 255, 0.25),
+            inset 0 0 18px rgba(3, 225, 255, 0.25);
+}
+
+.neo-footer p {
+    margin: 0;
+    color: #d7d7d7;
+    font-size: 14px;
+    letter-spacing: 0.6px;
+    text-shadow: 0 0 8px rgba(3, 225, 255, 0.4);
+}

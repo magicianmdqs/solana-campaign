@@ -1,0 +1,153 @@
+/* ============================
+   GLOBAL BACKGROUND ANIMATION
+   ============================ */
+body {
+    margin: 0;
+    background: radial-gradient(circle at 20% 20%, #1f0036, #000000);
+    background-size: 200% 200%;
+    animation: bgMove 12s ease infinite;
+    font-family: 'Inter', sans-serif;
+    color: #eaeaea;
+}
+
+@keyframes bgMove {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* ============================
+   NEON PURPLE/GREEN GLOW SHADOWS
+   ============================ */
+:root {
+    --accent: #8b5cf6;        /* Phantom purple */
+    --accent2: #14f195;       /* Solana green */
+    --dark-card: #0e0e0e;
+    --dark-bg: #080808;
+    --border-soft: #262626;
+}
+
+/* ============================
+        MAIN CONTAINER
+   ============================ */
+.campaign-container {
+    padding: 25px;
+    min-height: 100vh;
+    background: transparent;
+    color: #f5f5f5;
+}
+
+/* ============================
+            INPUTS
+   ============================ */
+.input-field {
+    width: 80%;
+    padding: 14px 18px;
+    margin: 12px 0;
+    background: #111;
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 17px;
+
+    transition: 0.25s;
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+}
+
+.input-field:focus {
+    border-color: var(--accent2);
+    box-shadow:
+            0 0 15px rgba(20, 241, 149, 0.6),
+            0 0 25px rgba(20, 241, 149, 0.35);
+}
+
+/* ============================
+            BUTTONS
+   ============================ */
+.btn-orange {
+    background: linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+    );
+    color: #fff;
+    border: none;
+    padding: 14px 22px;
+    margin: 10px 0;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 16px;
+
+    transition: 0.2s ease-in-out;
+    box-shadow:
+            0 0 18px rgba(139, 92, 246, 0.4),
+            0 0 32px rgba(20, 241, 149, 0.4);
+}
+
+.btn-orange:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow:
+            0 0 25px rgba(139, 92, 246, 0.7),
+            0 0 40px rgba(20, 241, 149, 0.7);
+}
+
+.btn-orange:active {
+    transform: scale(0.95);
+}
+
+/* Danger button */
+.btn-orange.danger {
+    background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
+    box-shadow: 0 0 16px rgba(255, 26, 26, 0.5);
+}
+
+.btn-orange.danger:hover {
+    background: linear-gradient(135deg, #ff6666, #ff3333);
+    box-shadow: 0 0 22px rgba(255, 26, 26, 0.7);
+}
+
+/* ============================
+         CAMPAIGN CARD
+   ============================ */
+.campaign-card {
+    background: var(--dark-card);
+    border: 1px solid var(--border-soft);
+    padding: 22px;
+    margin-top: 20px;
+    border-radius: 14px;
+
+    transition: 0.25s ease-in-out;
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.1);
+}
+
+.campaign-card:hover {
+    border-color: var(--accent);
+    box-shadow:
+            0 0 18px rgba(139, 92, 246, 0.4),
+            0 0 28px rgba(20, 241, 149, 0.25);
+    transform: translateY(-3px);
+}
+
+/* ============================
+          DIVIDERS
+   ============================ */
+.divider {
+    border-bottom: 1px dashed #333;
+    margin: 24px 0;
+    opacity: 0.7;
+}
+
+/* ============================
+ ADDITIONAL NEON HOVER EFFECT
+   ============================ */
+.neon-text {
+    transition: 0.2s;
+}
+
+.neon-text:hover {
+    color: var(--accent2);
+    text-shadow:
+            0 0 10px var(--accent),
+            0 0 20px var(--accent2);
+}
