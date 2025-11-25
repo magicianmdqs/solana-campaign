@@ -11,7 +11,7 @@ This project allows users to:
 
 > 🔗 **Chain:** `Testnet`  
 > 🔗 **Program ID:** `6hS1dDSbF2XezLs9JDYNMw8DJiFBU1iRLPfbpEpT5JQ9`  
-> 🔗 **Live Frontend on Vercel:** https://YOUR_PROJECT.vercel.app/
+> 🔗 **Live Frontend on Vercel:** https://solana-campaign-esu4.vercel.app
 
 ---
 
