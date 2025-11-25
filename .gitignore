@@ -13,7 +13,6 @@ test-ledger
 /app
 txtx.yml
 ./solana-frontend/node_modules
-./solana-frontend/dist
 ./solana-frontend/public/vite.svg
 ./solana-frontend/src/assets/*
 ./solana-frontend/
