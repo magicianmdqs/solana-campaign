@@ -9,6 +9,12 @@ export default defineConfig({
       include: ['buffer', 'process']
     })
   ],
+  server: {
+    port: 3000
+  },
+  preview: {
+    port: 3000
+  },
   resolve: {
     alias: {
       buffer: 'buffer',
