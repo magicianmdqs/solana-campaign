@@ -3,9 +3,9 @@ import idl from './my_program.json';
 import {clusterApiUrl, Connection, PublicKey, SystemProgram} from "@solana/web3.js";
 import {AnchorProvider, utils, Program, web3, BN} from "@coral-xyz/anchor";
 import type {MyProgram} from "./my_program.ts";
-import {Buffer} from "buffer";
 import "./campaigns.css"
 
+import {Buffer} from "buffer";
 window.Buffer = Buffer;
 
 const network = clusterApiUrl('testnet');
