@@ -10,7 +10,7 @@ This project allows users to:
 - Interact with the program using Phantom or any Solana wallet adapter
 
 > 🔗 **Chain:** `Testnet`  
-> 🔗 **Program ID:** `6hS1dDSbF2XezLs9JDYNMw8DJiFBU1iRLPfbpEpT5JQ9`  
+> 🔗 **Program ID:** `51yDLUXvtS8b3e9dsiDvgsQDRgyayCMqMnzY3JU6JDCF`  
 > 🔗 **Live Frontend on Vercel:** https://solana-campaign-esu4.vercel.app
 
 ---
