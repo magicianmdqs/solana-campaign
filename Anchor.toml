@@ -6,10 +6,12 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-solana01 = "6hS1dDSbF2XezLs9JDYNMw8DJiFBU1iRLPfbpEpT5JQ9"
+solana01 = "51yDLUXvtS8b3e9dsiDvgsQDRgyayCMqMnzY3JU6JDCF"
+solana02 = "6zZeL7zABHPj2H3RsfAm8mqTPqjRMKdsZbBMg5NxnSof"
 
 [programs.testnet]
-my_program = "6hS1dDSbF2XezLs9JDYNMw8DJiFBU1iRLPfbpEpT5JQ9"
+solana01 = "51yDLUXvtS8b3e9dsiDvgsQDRgyayCMqMnzY3JU6JDCF"
+solana02 = "6zZeL7zABHPj2H3RsfAm8mqTPqjRMKdsZbBMg5NxnSof"
 
 [registry]
 url = "https://api.apr.dev"
@@ -19,4 +21,5 @@ cluster = "testnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
+done = "anchor build -p solana01 && anchor deploy -p solana01 && cp ./target/idl/my_program.json ./solana-frontend/src && cp ./target/types/my_program.ts ./solana-frontend/src && cd solana-frontend && npm run build && cd .."
 test = "npm run test"

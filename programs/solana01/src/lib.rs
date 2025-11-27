@@ -2,9 +2,8 @@ use anchor_lang::prelude::*;
 use anchor_lang::solana_program::program::invoke;
 use anchor_lang::solana_program::entrypoint::ProgramResult;
 use ProgramError::{IncorrectProgramId, InsufficientFunds};
-use anchor_lang::solana_program::pubkey;
 
-declare_id!("6hS1dDSbF2XezLs9JDYNMw8DJiFBU1iRLPfbpEpT5JQ9");
+declare_id!("51yDLUXvtS8b3e9dsiDvgsQDRgyayCMqMnzY3JU6JDCF");
 pub static OWNER:Pubkey=pubkey!("3hEoJtuKopiYuqVN49xpkfG7hrRgAUFUTf2spiiZbFnt");
 
 #[program]
