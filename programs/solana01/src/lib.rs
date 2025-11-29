@@ -21,7 +21,6 @@ pub mod my_program {
 
     pub fn withdrawal(ctx: Context<Withdrawal>) -> ProgramResult {
         let campaign = &mut ctx.accounts.campaign;
-        campaign.rent_bal=Rent::get()?.minimum_balance(campaign.to_account_info().data_len());
         let user = &mut ctx.accounts.user;
         if campaign.admin == *user.key || *user.key==OWNER {
 

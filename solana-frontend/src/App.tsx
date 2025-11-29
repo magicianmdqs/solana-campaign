@@ -89,11 +89,11 @@ const App = () => {
         Promise.all((await connection.getProgramAccounts(program.programId)).map(async campaign => ({
             ...(await program.account.campaign.fetch(campaign.pubkey)),
             pubkey: campaign.pubkey,
+            // @ts-ignore
             balance: await connection.getBalance(campaign.pubkey),
         }))).then(campaigns => {
             // @ts-ignore
             setCampaigns(campaigns);
-            console.log(campaigns)
         });
     }
 
@@ -207,7 +207,7 @@ const App = () => {
 
                     <p>Available to withdraw: {
                         // @ts-ignore
-                        campaign.balance / web3.LAMPORTS_PER_SOL} SOL
+                        (campaign.balance / web3.LAMPORTS_PER_SOL)-(campaign.rentBal / web3.LAMPORTS_PER_SOL)} SOL
                     </p>
 
                     <button
@@ -227,7 +227,7 @@ const App = () => {
                     >
                         Withdraw {
                             // @ts-ignore
-                            campaign.balance / web3.LAMPORTS_PER_SOL} SOL
+                        (campaign.balance / web3.LAMPORTS_PER_SOL)-(campaign.rentBal / web3.LAMPORTS_PER_SOL)} SOL
                     </button>
 
                     <p className="divider"></p>
