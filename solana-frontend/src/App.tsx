@@ -6,9 +6,11 @@ import type {MyProgram} from "./my_program.ts";
 import "./campaigns.css"
 
 import {Buffer} from "buffer";
+
 window.Buffer = Buffer;
 
 const network = clusterApiUrl('testnet');
+console.log("Connected to network: ", network)
 // const network = "https://api.testnet.solana.com";
 const opts = {
     preflightCommitment: "processed",
@@ -87,6 +89,7 @@ const App = () => {
         Promise.all((await connection.getProgramAccounts(program.programId)).map(async campaign => ({
             ...(await program.account.campaign.fetch(campaign.pubkey)),
             pubkey: campaign.pubkey,
+            balance: await connection.getBalance(campaign.pubkey) / web3.LAMPORTS_PER_SOL
         }))).then(campaigns => {
             // @ts-ignore
             setCampaigns(campaigns);
@@ -116,12 +119,12 @@ const App = () => {
     }
 
     // @ts-ignore
-    const withdraw = async (publicKey) => {
+    const withdraw = async (publicKey,amount) => {
         try {
             const provider = getProvider();
             const program = new Program<MyProgram>(idl, provider);
 
-            await program.methods.withdrawal(new BN(0.1 * web3.LAMPORTS_PER_SOL))
+            await program.methods.withdrawal(new BN(amount * web3.LAMPORTS_PER_SOL))
                 .accounts({
                     campaign: publicKey,
                     user: provider.wallet.publicKey,
@@ -141,109 +144,121 @@ const App = () => {
                     onClick={connectWallet}>
                 Connect to Wallet
             </button>
-            </div>
-            );
+        </div>
+    );
 
-            const renderConnectedContainer = () => (
-            <div className="campaign-container">
-                <input
-                    type="text"
-                    className="input-field"
-                    placeholder="Campaign Name"
-                    value={campaignName}
-                    onChange={(e) => setCampaignName(e.target.value)}
-                />
-                <input
-                    type="text"
-                    className="input-field"
-                    placeholder="Campaign Description"
-                    value={campaignDesc}
-                    onChange={(e) => setCampaignDesc(e.target.value)}
-                />
+    const renderConnectedContainer = () => (
+        <div className="campaign-container">
+            <input
+                type="text"
+                className="input-field"
+                placeholder="Campaign Name"
+                value={campaignName}
+                onChange={(e) => setCampaignName(e.target.value)}
+            />
+            <input
+                type="text"
+                className="input-field"
+                placeholder="Campaign Description"
+                value={campaignDesc}
+                onChange={(e) => setCampaignDesc(e.target.value)}
+            />
 
-                <button className="btn-orange" onClick={createCampaign}>
-                    Create Campaign
-                </button>
+            <button className="btn-orange" onClick={createCampaign}>
+                Create Campaign
+            </button>
 
-                <br/>
-                <br/>
+            <br/>
+            <br/>
 
-                <button className="btn-orange" onClick={getCampaigns}>
-                    Get Campaigns
-                </button>
+            <button className="btn-orange" onClick={getCampaigns}>
+                Get Campaigns
+            </button>
 
-                <br/>
+            <br/>
 
-                {campaigns.map(campaign => (
-                    <div className="campaign-card"
+            {campaigns.map(campaign => (
+                <div className="campaign-card"
+                    // @ts-ignore
+
+                     key={campaign.pubkey.toString()}
+                >
+                    <p>Campaign Admin: {
                         // @ts-ignore
 
-                         key={campaign.pubkey.toString()}
+                        campaign.admin.toString()}</p>
+                    <p>Campaign Pubkey: {
+                        // @ts-ignore
+
+                        campaign.pubkey.toString()}</p>
+                    <p>Campaign Name: {
+                        // @ts-ignore
+
+                        campaign.name}</p>
+                    <p>Campaign Description: {
+                        // @ts-ignore
+
+                        campaign.desc}</p>
+                    <p>Total Donations: {
+                        // @ts-ignore
+
+                        campaign.amountDonated / web3.LAMPORTS_PER_SOL} SOL</p>
+
+                    <p>Available to withdraw: {
+                        // @ts-ignore
+                        campaign.balance} SOL
+                    </p>
+
+                    <button
+                        // @ts-ignore
+                        onClick={() => donate(campaign.pubkey)}
+                        className="btn-orange"
                     >
-                        <p>Campaign Admin: {
+                        Donate 0.1 SOL
+                    </button>
+
+                    <br/>
+
+                    <button
+                        // @ts-ignore
+                        onClick={() => withdraw(campaign.pubkey, campaign.balance)}
+                        className="btn-orange danger"
+                    >
+                        Withdraw {
                             // @ts-ignore
+                            campaign.balance} SOL
+                    </button>
 
-                            campaign.admin.toString()}</p>
-                        <p>Campaign Pubkey: {
-                            // @ts-ignore
+                    <p className="divider"></p>
+                </div>
+            ))}
+        </div>
 
-                            campaign.pubkey.toString()}</p>
-                        <p>Campaign Name: {
-                            // @ts-ignore
-
-                            campaign.name}</p>
-                        <p>Campaign Description: {
-                            // @ts-ignore
-
-                            campaign.desc}</p>
-                        <p>Campaign Donation: {
-                            // @ts-ignore
-
-                            campaign.amountDonated / web3.LAMPORTS_PER_SOL} SOL</p>
-
-                        <button
-                            // @ts-ignore
-                            onClick={() => donate(campaign.pubkey)}
-                            className="btn-orange"
-                        >
-                            Donate 0.1 SOL
-                        </button>
-
-                        <br/>
-
-                        <button
-                            // @ts-ignore
-                            onClick={() => withdraw(campaign.pubkey)}
-                            className="btn-orange danger"
-                        >
-                            Withdraw 0.1 SOL
-                        </button>
-
-                        <p className="divider"></p>
-                    </div>
-                ))}
-            </div>
-
-            );
+    );
 
 
-            useEffect(() => {
-            const onLoad = async () => {
+    useEffect(() => {
+        const onLoad = async () => {
             await walletConnected();
         };
-            window.addEventListener('load', onLoad);
-            return () => window.removeEventListener('load', onLoad);
-        }, []);
+        window.addEventListener('load', onLoad);
+        return () => window.removeEventListener('load', onLoad);
+    }, []);
 
-            return (
-            <div className="App">
-                <div className="container">
-                    <div className="header-container">
-                        {!walletAddress ? renderNotConnectedContainer() : renderConnectedContainer()}
-                    </div>
+    return (
+        <div className="App">
+
+            <div className="container">
+                <div className="header-container">
+                    {!walletAddress ? renderNotConnectedContainer() : renderConnectedContainer()}
                 </div>
             </div>
-            );
-            };
+            <p>
+                RPC: {network.toString()}
+            </p>
+        </div>
+    )
+        ;
+};
 
-            export default App;
+export default App;
