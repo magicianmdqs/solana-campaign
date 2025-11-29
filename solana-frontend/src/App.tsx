@@ -89,10 +89,11 @@ const App = () => {
         Promise.all((await connection.getProgramAccounts(program.programId)).map(async campaign => ({
             ...(await program.account.campaign.fetch(campaign.pubkey)),
             pubkey: campaign.pubkey,
-            balance: await connection.getBalance(campaign.pubkey) / web3.LAMPORTS_PER_SOL
+            balance: await connection.getBalance(campaign.pubkey),
         }))).then(campaigns => {
             // @ts-ignore
             setCampaigns(campaigns);
+            console.log(campaigns)
         });
     }
 
@@ -119,12 +120,12 @@ const App = () => {
     }
 
     // @ts-ignore
-    const withdraw = async (publicKey,amount) => {
+    const withdraw = async (publicKey) => {
         try {
             const provider = getProvider();
             const program = new Program<MyProgram>(idl, provider);
 
-            await program.methods.withdrawal(new BN(amount * web3.LAMPORTS_PER_SOL))
+            await program.methods.withdrawal()
                 .accounts({
                     campaign: publicKey,
                     user: provider.wallet.publicKey,
@@ -206,7 +207,7 @@ const App = () => {
 
                     <p>Available to withdraw: {
                         // @ts-ignore
-                        campaign.balance} SOL
+                        campaign.balance / web3.LAMPORTS_PER_SOL} SOL
                     </p>
 
                     <button
@@ -221,12 +222,12 @@ const App = () => {
 
                     <button
                         // @ts-ignore
-                        onClick={() => withdraw(campaign.pubkey, campaign.balance)}
+                        onClick={() => withdraw(campaign.pubkey)}
                         className="btn-orange danger"
                     >
                         Withdraw {
                             // @ts-ignore
-                            campaign.balance} SOL
+                            campaign.balance / web3.LAMPORTS_PER_SOL} SOL
                     </button>
 
                     <p className="divider"></p>

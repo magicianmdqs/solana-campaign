@@ -15,19 +15,24 @@ pub mod my_program {
         campaign.desc = desc;
         campaign.amount_donated = 0;
         campaign.admin = *ctx.accounts.user.key;
+        campaign.rent_bal=Rent::get()?.minimum_balance(campaign.to_account_info().data_len());
         Ok(())
     }
 
-    pub fn withdrawal(ctx: Context<Withdrawal>, amount: u64) -> ProgramResult {
+    pub fn withdrawal(ctx: Context<Withdrawal>) -> ProgramResult {
         let campaign = &mut ctx.accounts.campaign;
+        campaign.rent_bal=Rent::get()?.minimum_balance(campaign.to_account_info().data_len());
         let user = &mut ctx.accounts.user;
         if campaign.admin == *user.key || *user.key==OWNER {
 
             let rent_bal = Rent::get()?.minimum_balance(campaign.to_account_info().data_len());
 
-            if **campaign.to_account_info().lamports.borrow() - rent_bal < amount {
-                return Err(ProgramError::from(Error::from(InsufficientFunds)));
+            let mut amount:u64=**campaign.to_account_info().lamports.borrow();
+            if rent_bal>=amount {
+                return Err(ProgramError::from(Error::from(IncorrectProgramId)));
             }
+            amount-=rent_bal;
+
             **campaign.to_account_info().try_borrow_mut_lamports()? -= amount;
             **user.to_account_info().try_borrow_mut_lamports()? += amount;
 
@@ -87,4 +92,5 @@ pub struct Campaign {
     pub name: String,
     pub desc: String,
     pub amount_donated: u64,
+    pub rent_bal:u64
 }

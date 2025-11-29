@@ -134,12 +134,7 @@ export type MyProgram = {
           "signer": true
         }
       ],
-      "args": [
-        {
-          "name": "amount",
-          "type": "u64"
-        }
-      ]
+      "args": []
     }
   ],
   "accounts": [
@@ -177,6 +172,10 @@ export type MyProgram = {
           },
           {
             "name": "amountDonated",
+            "type": "u64"
+          },
+          {
+            "name": "rentBal",
             "type": "u64"
           }
         ]
